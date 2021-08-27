@@ -2,20 +2,16 @@
 <!DOCTYPE mycat:schema SYSTEM "schema.dtd">
 <mycat:schema xmlns:mycat="http://io.mycat/">
 
-	<schema name="druid" dataNode="dataNode1" checkSQLschema="true" sqlMaxLimit="100">
+	<schema name="user" checkSQLschema="true" sqlMaxLimit="100">
 		<!--subTables="boards_$0-127"-->
 		<table
-				name="boards"
-				dataNode="dataNode1,dataNode2,dataNode3,dataNode4,dataNode5,dataNode6"
-				rule="sharding-by-murmur"/>
+				name="user"
+				dataNode="dataNode1,dataNode2"
+				rule="auto-sharding-long"/>
 	</schema>
 
-	<dataNode name="dataNode1" dataHost="dataHost1" database="druid_1" />
-	<dataNode name="dataNode2" dataHost="dataHost2" database="druid_2" />
-	<dataNode name="dataNode3" dataHost="dataHost3" database="druid_3" />
-	<dataNode name="dataNode4" dataHost="dataHost4" database="druid_4" />
-	<dataNode name="dataNode5" dataHost="dataHost5" database="druid_5" />
-	<dataNode name="dataNode6" dataHost="dataHost6" database="druid_6" />
+	<dataNode name="dataNode1" dataHost="dataHost1" database="user_1" />
+	<dataNode name="dataNode2" dataHost="dataHost2" database="user_2" />
 
 	<!--
 	balance
@@ -36,64 +32,24 @@
 		 3，基于MySQL galary cluster的切换机制（适合集群）（1.4.1），心跳语句为show status like ‘wsrep%‘。
 	-->
 	<dataHost name="dataHost1" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
+			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">
 		<heartbeat>select user()</heartbeat>
 		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_1" password="druid_1">
+				host="host.docker.internal"
+				url="jdbc:mysql://host.docker.internal:13306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
+				user="root" password="root123456">
 			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
 		</writeHost>
 	</dataHost>
 	<dataHost name="dataHost2" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
+			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">
 		<heartbeat>select user()</heartbeat>
 		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_2" password="druid_2">
+				host="host.docker.internal"
+				url="jdbc:mysql://host.docker.internal:23306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
+				user="root" password="root123456">
 			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
 		</writeHost>
 	</dataHost>
-	<dataHost name="dataHost3" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
-		<heartbeat>select user()</heartbeat>
-		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_3" password="druid_3">
-			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
-		</writeHost>
-	</dataHost>
-	<dataHost name="dataHost4" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
-		<heartbeat>select user()</heartbeat>
-		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_4" password="druid_4">
-			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
-		</writeHost>
-	</dataHost>
-	<dataHost name="dataHost5" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
-		<heartbeat>select user()</heartbeat>
-		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_5" password="druid_5">
-			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
-		</writeHost>
-	</dataHost>
-	<dataHost name="dataHost6" maxCon="1000" minCon="10" balance="0"
-			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="-1" slaveThreshold="100">
-		<heartbeat>select user()</heartbeat>
-		<writeHost
-				host="192.168.1.104"
-				url="jdbc:mysql://192.168.1.104:3306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
-				user="druid_6" password="druid_6">
-			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
-		</writeHost>
-	</dataHost>
-
+	
 </mycat:schema>

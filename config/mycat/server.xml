@@ -92,7 +92,7 @@
         <property name="password">druid</property>
 
         <!-- Mycat 数据库名 -->
-        <property name="schemas">druid</property>
+        <property name="schemas">user</property>
 
         <!-- 是否使用加密的密码，0 表示不使用加密的密码 -->
         <property name="usingDecrypt">0</property>
