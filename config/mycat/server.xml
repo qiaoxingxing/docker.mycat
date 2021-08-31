@@ -87,6 +87,16 @@
     </firewall>-->
 
     <!-- Mycat 数据库用户名 -->
+    <user name="root">
+        <!-- Mycat 数据库密码 -->
+        <property name="password">root123456</property>
+
+        <!-- Mycat 数据库名 -->
+        <property name="schemas">user</property>
+
+        <!-- 是否使用加密的密码，0 表示不使用加密的密码 -->
+        <property name="usingDecrypt">0</property>
+    </user>
     <user name="druid">
         <!-- Mycat 数据库密码 -->
         <property name="password">druid</property>

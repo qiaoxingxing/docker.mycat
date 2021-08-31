@@ -2,10 +2,11 @@ FROM java:8-jre
 
 MAINTAINER <DeKuan dev@dekuan.org>
 LABEL Description="MyCat MySQL server"
-ENV mycat-version Mycat-server-1.6.5-release-20191127214730-linux.tar.gz
+ARG mycat_version=Mycat-server-1.6.7.6-release-20210730131311-linux.tar.gz
+ENV mycat-version ${mycat_version}
 USER root
-COPY ./mycat-server/Mycat-server-1.6.5-release-20191127214730-linux.tar.gz /
-RUN tar -zxf /Mycat-server-1.6.5-release-20191127214730-linux.tar.gz
+COPY ./mycat-server/${mycat_version} /
+RUN tar -zxf /${mycat_version}
 ENV MYCAT_HOME=/mycat
 ENV PATH=$PATH:$MYCAT_HOME/bin
 WORKDIR $MYCAT_HOME/bin

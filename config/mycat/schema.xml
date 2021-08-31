@@ -7,7 +7,7 @@
 		<table
 				name="user"
 				dataNode="dataNode1,dataNode2"
-				rule="auto-sharding-long"/>
+				rule="sharding-by-intfile"/>
 	</schema>
 
 	<dataNode name="dataNode1" dataHost="dataHost1" database="user_1" />
@@ -31,21 +31,21 @@
 		 2，基于MySQL主从同步的状态决定是否切换,心跳语句为show slave status
 		 3，基于MySQL galary cluster的切换机制（适合集群）（1.4.1），心跳语句为show status like ‘wsrep%‘。
 	-->
-	<dataHost name="dataHost1" maxCon="1000" minCon="10" balance="0"
+	<dataHost name="dataHost1" maxCon="1000" minCon="10" balance="1"
 			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">
 		<heartbeat>select user()</heartbeat>
 		<writeHost
-				host="host.docker.internal"
+				host="m1"
 				url="jdbc:mysql://host.docker.internal:13306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
 				user="root" password="root123456">
-			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->
+			<readHost host="s1" url="host.docker.internal:33306" user="root" password="root123456" />
 		</writeHost>
 	</dataHost>
 	<dataHost name="dataHost2" maxCon="1000" minCon="10" balance="0"
 			  writeType="0" dbType="mysql" dbDriver="jdbc" switchType="1" slaveThreshold="100">
 		<heartbeat>select user()</heartbeat>
 		<writeHost
-				host="host.docker.internal"
+				host="m2"
 				url="jdbc:mysql://host.docker.internal:23306?useSSL=false&amp;serverTimezone=UTC&amp;characterEncoding=utf8"
 				user="root" password="root123456">
 			<!--<readHost host="192.168.1.104" url="192.168.1.104:3306" user="druid" password="druid" />-->

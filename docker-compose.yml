@@ -1,7 +1,9 @@
 version: '3'
 services:
   mycat:
-    build: .
+    # build: .
+    # image: dockermycat_mycat:latest
+    image: dockermycat_mycat:v1
     container_name: mycat
     volumes:
       - ./config/mycat/:/mycat/conf/:ro

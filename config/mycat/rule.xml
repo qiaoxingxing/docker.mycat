@@ -25,7 +25,7 @@
 
 	<tableRule name="sharding-by-intfile">
 		<rule>
-			<columns>sharding_id</columns>
+			<columns>province_id</columns>
 			<algorithm>hash-int</algorithm>
 		</rule>
 	</tableRule>
@@ -101,6 +101,7 @@
 	<function name="hash-int"
 		class="io.mycat.route.function.PartitionByFileMap">
 		<property name="mapFile">partition-hash-int.txt</property>
+		<property name="defaultNode">0</property>
 	</function>
 	<function name="rang-long"
 		class="io.mycat.route.function.AutoPartitionByLong">
